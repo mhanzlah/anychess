@@ -13,8 +13,10 @@ const server = http.createServer(app, {
 const io = new Server(server, {
     cors: {
         origin: config.ALLOWED_ORIGINS,
+        methods: ["GET"],
         credentials: true,
-    }
+    },
+    transports: ["websocket", "polling"],
 });
 
 const chess = new Chess();
