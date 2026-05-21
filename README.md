@@ -9,7 +9,7 @@
 * 🔄 Real-time multiplayer gameplay using WebSockets
 * 🤝 Automatic matchmaking system
 * ♟️ Click-based chess piece movement
-* 🧠 Fully interactive chess logic powered by `chess.js` (or your engine)
+* 🧠 Fully interactive chess logic powered by `chess.js`
 * 🌐 Smooth real-time synchronization between players
 * 💬 In-game chat system *(in progress)*
 * ⚡ Lightweight and fast frontend experience
