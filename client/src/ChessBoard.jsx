@@ -57,7 +57,6 @@ export default function ChessBoard() {
         });
     };
 
-    // ♟️ Image-based pieces
     const getPieceImage = (piece) => {
         if (!piece) return null;
         const color = piece.color === "w" ? "w" : "b";
@@ -67,22 +66,19 @@ export default function ChessBoard() {
 
     const isFlipped = playerRole === "b";
 
-    const displayBoard =
-        isFlipped
-            ? [...board].reverse().map(row => [...row].reverse())
-            : board;
+    const displayBoard = isFlipped
+        ? [...board].reverse().map(row => [...row].reverse())
+        : board;
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
 
-            {/* Status */}
             <div className="mb-4 text-sm text-gray-700">
                 {gameStatus === "waiting" && "Waiting for opponent"}
                 {gameStatus === "playing" && "Game in progress"}
                 {gameStatus === "gameOver" && "Game over"}
             </div>
 
-            {/* Board */}
             <div className="grid grid-cols-8 border border-gray-400">
                 {displayBoard.map((row, rowIndex) =>
                     row.map((square, colIndex) => {
@@ -96,9 +92,8 @@ export default function ChessBoard() {
                                 key={`${rowIndex}-${colIndex}`}
                                 className={`w-14 h-14 flex items-center justify-center ${isLight ? "bg-gray-100" : "bg-gray-300"
                                     }`}
-                                onDragOver={(e) => e.preventDefault()}
-                                onDrop={() => {
-                                    if (!draggedPiece) return;
+                                onPointerUp={() => {
+                                    if (!draggedPiece || !sourceSquare) return;
 
                                     const from =
                                         String.fromCharCode(97 + sourceSquare.col) +
@@ -113,23 +108,27 @@ export default function ChessBoard() {
                                     setDraggedPiece(null);
                                     setSourceSquare(null);
                                 }}
+                                onPointerCancel={() => {
+                                    setDraggedPiece(null);
+                                    setSourceSquare(null);
+                                }}
                             >
                                 {square && (
                                     <img
                                         src={getPieceImage(square)}
                                         alt=""
                                         className="w-10 h-10 cursor-grab"
-                                        draggable={playerRole === square.color}
-                                        onDragStart={() => {
+                                        draggable={false}
+                                        onPointerDown={(e) => {
+                                            if (playerRole !== square.color) return;
+
                                             setDraggedPiece(square);
                                             setSourceSquare({
                                                 row: actualRow,
                                                 col: actualCol,
                                             });
-                                        }}
-                                        onDragEnd={() => {
-                                            setDraggedPiece(null);
-                                            setSourceSquare(null);
+
+                                            e.target.setPointerCapture?.(e.pointerId);
                                         }}
                                     />
                                 )}
