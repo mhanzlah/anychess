@@ -1,8 +1,8 @@
-import React from 'react'
+import ChessBoard from './ChessBoard'
 
 const App = () => {
   return (
-    <div>Anonymous Chess</div>
+    <ChessBoard />
   )
 }
 
