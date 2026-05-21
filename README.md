@@ -32,12 +32,6 @@
 
 ---
 
-Got it — you just need the **Demo section fixed properly** for a local screenshot inside your repo.
-
-Here’s the correct version:
-
----
-
 ## 📸 Demo
 
 ### 🖼️ Screenshot
